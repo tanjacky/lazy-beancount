@@ -30,7 +30,7 @@ if [ ! -d "$DATA_DIR" ]; then
     exit 1
 fi
 
-LAZY_BEANCOUNT_HOST=${LAZY_BEANCOUNT_HOST:-"localhost"}
+LAZY_BEANCOUNT_HOST=10.88.111.201
 LAZY_BEANCOUNT_PORT=${LAZY_BEANCOUNT_PORT:-8777}
 FAVA_PORT=${FAVA_PORT:-5003}
 BEANCOUNT_IMPORT_PORT=${BEANCOUNT_IMPORT_PORT:-8101}
@@ -48,7 +48,7 @@ else
     USER_OPTS="--userns=keep-id:uid=1245,gid=1245"
 fi
 
-$RUNTIME run -it \
+$RUNTIME run -d -it \
     -v $PWD/$DATA_DIR:/workspace \
     -p ${FAVA_PORT}:5000 \
     -p ${BEANCOUNT_IMPORT_PORT}:8101 \
@@ -56,8 +56,7 @@ $RUNTIME run -it \
     -e LAZY_BEANCOUNT_HOST=$LAZY_BEANCOUNT_HOST \
     -e LAZY_BEANCOUNT_PORT=$LAZY_BEANCOUNT_PORT \
     -e FAVA_PORT=$FAVA_PORT \
-    -e BEANCOUNT_IMPORT_PORT=$BEANCOUNT_IMPORT_PORT \
     -e MPLCONFIGDIR=/tmp/matplotlib-temp \
     --name lazybean \
     $USER_OPTS \
-    vandereer/lazy-beancount:latest
+	  lazy-beancount:latest
